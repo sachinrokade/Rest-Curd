@@ -28,6 +28,12 @@ public class StudentSER implements StudentImpl {
 	}
 	
 	@Override
+	public List<Student> byStudentName(String name)
+	{
+		return dao.findByName(name);
+	}
+	
+	@Override
 	public boolean deleteStudent(int id)
 	{
 		if(dao.existsById(id))

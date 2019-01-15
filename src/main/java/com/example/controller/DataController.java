@@ -141,6 +141,13 @@ public class DataController implements ErrorController
 		return ser.updateStudent(update);
 	}
 	
+	@GetMapping("/byname/{name}")
+	public List<Student> byName(@PathVariable String name) 
+	{
+		System.out.println(name);
+		return ser.byStudentName(name);
+	}
+	
 	
 	@GetMapping("/test")
 	public String test() 
