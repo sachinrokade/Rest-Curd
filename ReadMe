@@ -13,10 +13,6 @@ Put			http://localhost:8777/data/update/1		<< Update Recode
 Delete			http://localhost:8777/data/delete/1		<< Delete Recode
 
 ***************** Json format ********************************
-<<<<<<< Upstream, based on origin/master
-
-=======
->>>>>>> f0b297a done
 		{
 			"id":1,
 			"name":"Sachin"
