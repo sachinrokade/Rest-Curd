@@ -2,15 +2,12 @@ package com.example.service;
 
 import static org.testng.Assert.assertEquals;
 
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import com.example.model.Student;
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestService extends AbstractTestNGSpringContextTests {
  
