@@ -2,7 +2,7 @@ pipeline {
     agent any
 
 environment {
-        Java_Home = 'C:\Program Files\Java\jdk1.8.0_201\bin' 
+        Java_Home = 'C:/Program Files/Java/jdk1.8.0_201/bin' 
         }
 
     stages {
