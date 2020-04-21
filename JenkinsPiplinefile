@@ -5,15 +5,16 @@ pipeline {
         jdk 'jdk8'
     }
     stages {
-        stage ('Initialize') {
-            steps {
-            
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-            }
-        }
-    stages {
-        stage('Build') {
+
+        stages {
+	        stage ('Initialize') {
+	            steps {
+	            
+	                    echo "PATH = ${PATH}"
+	                    echo "M2_HOME = ${M2_HOME}"
+	            }
+	        }
+	    stage('Build') {
             steps {
                 echo '..................................Building Start.........................'
                 bat 'mvn clean compile'
