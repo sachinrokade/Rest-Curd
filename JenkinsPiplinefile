@@ -7,7 +7,7 @@ tools {
     stages {
         stage('Build') {
             steps {
-               echo '..................................Building Start.........................'$JAVA_HOME
+               echo '..................................Building Start.........................'
                 bat 'mvn clean compile'
                 echo '..................................Building End.........................'
             }
