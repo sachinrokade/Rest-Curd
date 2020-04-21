@@ -11,7 +11,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo '..................................Building Start.........................'
+                bat 'mvn test'
+                echo '..................................Building End.........................'
             }
         }
         stage('Deploy') {
