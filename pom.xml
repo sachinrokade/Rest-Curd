@@ -94,4 +94,11 @@
         </plugin>
     </plugins>
 </reporting>
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>MyCo Internal Repository</name>
+			<url>C:\Users\sachin\.m2\repository</url>
+		</repository>
+	</distributionManagement>
 </project>
