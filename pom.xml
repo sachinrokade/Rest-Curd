@@ -109,6 +109,7 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
 		<plugins>
 			<plugin>
@@ -164,4 +165,13 @@
 		</plugins>
 	</reporting>
 	<packaging>war</packaging>
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>corp1</id>
+			<name>Corporate Repository</name>
+			<url>C:/Users/sachin/.m2</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 </project>
