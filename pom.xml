@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>com.example</start-class>
 	</properties>
 
 	<dependencies>
@@ -162,4 +163,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<packaging>war</packaging>
 </project>

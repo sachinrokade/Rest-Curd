@@ -2,13 +2,18 @@ package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class SpringDataTrancationApplication {
+public class SpringDataTrancationApplication extends SpringBootServletInitializer {
+	   @Override
+	   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	      return application.sources(SpringDataTrancationApplication.class);
+	   }
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDataTrancationApplication.class, args);
