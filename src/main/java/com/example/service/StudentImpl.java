@@ -6,7 +6,7 @@ import com.example.model.Student;
 
 public interface StudentImpl {
 
-	public String saveStudent(Student s);
+	public Student saveStudent(Student s);
 	public List<Student> getsStudent();
 	public List<Student> byStudentName(String name);
 	

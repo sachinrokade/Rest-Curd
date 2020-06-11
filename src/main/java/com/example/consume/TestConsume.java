@@ -1,11 +1,8 @@
 package com.example.consume;
 
-import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.model.Student;

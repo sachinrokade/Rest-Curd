@@ -16,10 +16,9 @@ public class StudentSER implements StudentImpl {
 	StudentDAO dao;
 
 	@Override
-	public String saveStudent(Student s) 
+	public Student saveStudent(Student s) 
 	{
-		dao.save(s);
-		return "savede";
+		return dao.save(s);
 	}
 
 	@Override
