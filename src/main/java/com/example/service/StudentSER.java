@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.StudentDAO;
+import com.example.exception.ListEmptyException;
+import com.example.exception.NotFoundStudent;
 import com.example.model.Student;
 
 @Service
@@ -22,7 +24,11 @@ public class StudentSER implements StudentImpl {
 	}
 
 	@Override
-	public List<Student> getsStudent() {
+	public List<Student> getsStudent() throws ListEmptyException {
+		
+		List<Student> list=dao.findAll();
+		if(list.isEmpty()||list==null)
+			throw new ListEmptyException("....No Student added in List...");
 		return dao.findAll();
 	}
 	
@@ -33,7 +39,7 @@ public class StudentSER implements StudentImpl {
 	}
 	
 	@Override
-	public boolean deleteStudent(int id)
+	public boolean deleteStudent(int id) throws NotFoundStudent
 	{
 		if(dao.existsById(id))
 		{
@@ -41,14 +47,13 @@ public class StudentSER implements StudentImpl {
 			return true;
 		}
 		else
-
-			return false;
+			throw new NotFoundStudent("....Student Not Found for Delete with..."+id);
 		
 	}
 	@Override
-	public Student getStudent(int id)
+	public Student getStudent(int id) throws NotFoundStudent
 	{
-		return dao.findById(id).get();
+		return dao.findById(id).orElseThrow(()->new NotFoundStudent("....Student NotFound for Updated with ..."+id));
 	}
 	
 	@Override

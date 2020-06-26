@@ -2,7 +2,9 @@ package com.example.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -11,11 +13,15 @@ public class Student {
 
 	@Id
     @ApiModelProperty(notes = "ID of the Student",name="name",required=true,value="Id name")
+	@NotNull
+	@PositiveOrZero(message="Id Should be Positive Or Zero")
 	int id;
 
     @ApiModelProperty(notes = "Name of the Student",name="name",required=true,value="test name")
+    @Size(min=2,message="Name should max 2 char")
 	String name;
-	public Student() {
+	
+    public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -1,22 +1,27 @@
 package com.example.controller;
 
+import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.exception.ListEmptyException;
+import com.example.exception.NotFoundStudent;
 import com.example.model.Student;
-import com.example.model.excp.InvalidDataRequestException;
 import com.example.service.StudentSER;
 
 import io.swagger.annotations.Api;
@@ -29,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/data")
 @Api(value = "DataController", description = "REST APIs related to Student Entity useing Spring DATA and Trancation!!!!")
-public class DataController implements ErrorController {
+public class DataController  {
 
 	String PATH = "/error";
 
@@ -37,23 +42,17 @@ public class DataController implements ErrorController {
 	StudentSER ser;
 
 	@PostMapping("/add")
-
 	@ApiOperation(value = "Add Students in the System ", response = Iterable.class, tags = "Add Student")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 201, message = "Creteded!"), @ApiResponse(code = 401, message = "not authorized!"),
 			@ApiResponse(code = 403, message = "forbidden!!!"), @ApiResponse(code = 404, message = "not added!!!") })
-	public String addStudent(@RequestBody Student s) throws InvalidDataRequestException {
-		log.info("***************Start Data Contoller*************************");
+	public ResponseEntity<Object> addStudent(@Valid @RequestBody Student student) {
+		
+		Student s=ser.saveStudent(student);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+		.buildAndExpand(s.getId()).toUri();
 
-		if (ser.saveStudent(s) != null) {
-			log.info("***************End with Success Data Contoller*************************");
-			return "Saves DATA";
-		} else {
-
-			log.info("***************End with Exception Data Contoller*************************");
-			throw new InvalidDataRequestException();
-		}
-
+		return ResponseEntity.created(location).build();
 	}
 
 	/*
@@ -99,7 +98,7 @@ public class DataController implements ErrorController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "not authorized!"), @ApiResponse(code = 403, message = "forbidden!!!"),
 			@ApiResponse(code = 404, message = "not found!!!") })
-	public List<Student> getsStudent() {
+	public List<Student> getsStudent() throws ListEmptyException {
 		return ser.getsStudent();
 	}
 
@@ -108,7 +107,7 @@ public class DataController implements ErrorController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "not authorized!"), @ApiResponse(code = 403, message = "forbidden!!!"),
 			@ApiResponse(code = 404, message = "not found!!!") })
-	public Student getsStudent(@PathVariable int id) {
+	public Student getsStudent(@PathVariable int id) throws NotFoundStudent {
 		return ser.getStudent(id);
 	}
 
@@ -119,37 +118,15 @@ public class DataController implements ErrorController {
 			@ApiResponse(code = 404, message = "not found!!!") })
 	// public String deleteStudent(@RequestParam int id)
 	// public String deleteStudent(@PathParam int id)
-	public String deleteStudent(@PathVariable int id) {
+	public String deleteStudent(@PathVariable int id) throws NotFoundStudent {
 		if (ser.deleteStudent(id))
 			return "Deleted Succefully";
 		else
 			return "Recode not exist";
 	}
 
-	@PutMapping("/update")
-	public Student updateStudent(@RequestBody Student update) {
-
-		return ser.updateStudent(update);
-	}
-
-	@GetMapping("/byname/{name}")
-	public List<Student> byName(@PathVariable String name) {
-		System.out.println(name);
-		return ser.byStudentName(name);
-	}
-
 	@GetMapping("/test")
 	public String test() {
 		return "it work fine";
-	}
-
-	@GetMapping(value = "/error")
-	public String defaltError() {
-		return "Page not FOund";
-	}
-
-	@Override
-	public String getErrorPath() {
-		return PATH;
 	}
 }
