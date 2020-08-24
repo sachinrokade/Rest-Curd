@@ -7,16 +7,22 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Spring_Data_Trancation</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Spring_Data_Trancation</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>rest-curd</artifactId>
+	<version>
+		0.0.1-SNAPSHOT
+	</version>
+	<name>
+		rest-curd
+	</name>
+	<description>
+		Demo project for Spring Boot
+	</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>1.8</java.version><!-- <docker.image.prefix>spring-boot-rest-curd</docker.image.prefix> -->
 	</properties>
 
 	<dependencies>
@@ -91,11 +97,8 @@
 
 
 		<!-- Mockito extention -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
+		<!-- <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-junit-jupiter</artifactId> 
+			<scope>test</scope> </dependency> -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -108,14 +111,8 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
-			<scope>test</scope>
-		</dependency>
-
-
+		<!-- <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-all</artifactId> 
+			<scope>test</scope> </dependency> -->
 	</dependencies>
 
 
@@ -166,39 +163,27 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-		</plugins>
-	</build>
-	<reporting>
-		<plugins>
+
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.15</version>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.10</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<!-- <goal>push</goal> -->
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-					<configLocation>${basedir}/checkstyle.xml</configLocation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.13.0</version>
-				<configuration>
-					<rulesets>
-						<!-- A rule set, that comes bundled with PMD -->
-						<ruleset>${basedir}/pmd.xml</ruleset>
-					</rulesets>
+					<repository>sachinrokade/${project.artifactId}</repository>
+					<!-- <contextDirectory>src/main/docker</contextDirectory> -->
+					<tag>${project.version}</tag>
 				</configuration>
 			</plugin>
 
 		</plugins>
-	</reporting>
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>corp1</id>
-			<name>Corporate Repository</name>
-			<url>D:/SoFtwEre/Langvages(Programming)SoFt/.m2</url>
-			<layout>default</layout>
-		</repository>
-	</distributionManagement>
+	</build>
 </project>
